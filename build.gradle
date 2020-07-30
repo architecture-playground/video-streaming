@@ -1,0 +1,51 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.playground'
+version = '1.0'
+sourceCompatibility = '13'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.2.0.RELEASE'
+
+    // database
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.postgresql:postgresql:42.1.4'
+    implementation 'org.flywaydb:flyway-core:5.2.4'
+    implementation 'com.vladmihalcea:hibernate-types-52:2.9.12'
+
+    // 3-rd party
+    implementation 'org.atteo:evo-inflector:1.0.1'
+    implementation 'joda-time:joda-time:2.10.5'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // tests
+    testCompile 'org.hamcrest:hamcrest-core:2.2'
+    testCompile 'org.testcontainers:postgresql:1.13.0'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
